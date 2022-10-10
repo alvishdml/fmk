@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'icomoon';
+    src:  url('fonts/icomoon.eot?y540ut');
+    src:  url('fonts/icomoon.eot?y540ut#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?y540ut') format('truetype'),
+        url('fonts/icomoon.woff?y540ut') format('woff'),
+        url('fonts/icomoon.svg?y540ut#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-fuck:before {
+    content: "\e907";
+}
+.icon-marry:before {
+    content: "\e908";
+}
+.icon-kill:before {
+    content: "\e909";
+}
+.icon-share:before {
+    content: "\e903";
+}
+.icon-profile:before {
+    content: "\e905";
+}
+.icon-chat:before {
+    content: "\e906";
+}
+.icon-selection:before {
+    content: "\e904";
+}

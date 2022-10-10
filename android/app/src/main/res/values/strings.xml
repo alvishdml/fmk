@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FMK</string>
+     <string moduleConfig="true" name="CodePushDeploymentKey">DeploymentKey</string>
+     <string name="facebook_app_id">1838942186317166</string>
+     <string name="facebook_client_token">cffc136ee47d46ccee7a660b3956da9f</string>
+     <string name="RNB_GOOGLE_PLAY_LICENSE_KEY">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiaMVrk/y354WNLR5kLipnRDQbtvRwT0v1oIHoCGSqZRng5MaqgmPeMXWUQQ37K0KeqJn/jVV2uu2DTBH4ytDrRnDfVooN4hAFox08QYadIRqfq+07tLtyJawHYnl81z1eRGCD1DhQW9b8xfIIssSoZO3t79UU+Ks0zxdok++x/E7yfL5QhkR7KGSUFg6FAOzLLdrmUi88kfxXXGyJIplAXm2ngeROYoDhqS0KuY7MXk7KnjcYLXr3rP2RD4MwMBFbjBbwJHedTfSPO7Sp1wusSB1rnwRT3NZjx+5ts0tUOAzJ+nUi0usUl3EqFRZj3a6jZrIW64+NmX1sUDGHzi8YwIDAQAB</string>
+</resources>
