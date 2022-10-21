@@ -100,6 +100,7 @@ export default class EmailSignIn extends Component {
         password: false,
       },
       recovering: false,
+      isFocused: false,
     };
 
     this.isValidEmail = this.isValidEmail.bind(this);
@@ -308,7 +309,7 @@ export default class EmailSignIn extends Component {
                 EMAIL:
               </Text>
               <TextInput
-                style={{ height: buttonSizeHeight / 1.4 }}
+                style={{ height: buttonSizeHeight / 1.4, borderBottomWidth:1}}
                 autoComplete="email"
                 onChangeText={(email) => this.setState({ email })}
                 value={this.state.email}
@@ -324,7 +325,7 @@ export default class EmailSignIn extends Component {
               </Text>
               <TextInput
                 secureTextEntry
-                style={{ height: buttonSizeHeight / 1.4 }}
+                style={{ height: buttonSizeHeight / 1.4, borderBottomWidth:1, borderBottomColor:'#3f3f3f' }}
                 onChangeText={(password) => this.setState({ password })}
                 value={this.state.password}
               />
@@ -446,13 +447,13 @@ export default class EmailSignIn extends Component {
           </View>
         </View>
         <Modal
-          modalDidClose={() => {
+          onDismiss={() => {
             this.setState({ userNotFound: false });
           }}
           offset={0}
           hideCloseButton={false}
           backdropType="blur"
-          open={this.state.userNotFound}
+          isVisible={this.state.userNotFound}
           containerStyle={{
             alignItems: 'center',
           }}

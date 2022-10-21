@@ -329,8 +329,8 @@ export default class ChatWindow extends Component {
 
           // TODO this is a workaround to set chat composer height, find a better way
           newComposerHeight = 41
-          if(this.ref_chat){
-            this.ref_chat.setState({
+          if(this.ref_chat.current){
+            this.ref_chat.current.setState({
               composerHeight: newComposerHeight,
               messagesContainerHeight: oldContainerHeight + oldComposerHeight - newComposerHeight - headerOffset
             })
@@ -390,6 +390,7 @@ export default class ChatWindow extends Component {
       var message = chat[0];
       if (message.user._id != chatWindow.state.userPosition) {
         var newMessages = GiftedChat.append(chatWindow.state.messages, message);
+        console.log(newMessages, 'new messagess')
         chatWindow.setState({ messages: newMessages });
         Meteor.call('readMessage', this.props.idMatch, (err, result) => {
           if (!err) {

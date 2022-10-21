@@ -665,7 +665,9 @@ export default class GameView extends Component {
       customButtonSize.height = 45;
     }
     if (this.state.isLoading) {
+      console.log(this.state.end, this.state.noCoord, 'sndfjkashfihdiheiuhfuiwhiuh')
       if (!this.state.fetchingUsers) {
+      console.log('eeeeee')
         this.props.emitter.emit('stopPulseShareCombination');
         this.props.emitter.emit('newCombination');
         fetchUsers(this, Meteor.user()._id, this.state.array);
@@ -705,7 +707,6 @@ export default class GameView extends Component {
     ) {
       this.notifyReport();
     }
-    //if(!this.state.canPlay){
     if (false) {
       trackScreen('CountDown');
       trackEvent('CountDown', 'view');
@@ -1351,7 +1352,7 @@ export default class GameView extends Component {
                   color: '#fff',
                 }}
               >
-                {/* {I18n.t('app.components.GameView.goPlayFMK')} */}
+                {I18n.t('app.components.GameView.goPlayFMK')}
               </Text>
             </View>
           </View>
@@ -1449,8 +1450,22 @@ function fetchUsers(component, user_id) {
                 Number(db_coords[1]),
                 Number(db_range),
                 (err, result) => {
+                  console.log(result, 'resulttt');
+                  console.log(user_id,
+                    hotOrNot,
+                    db_gender,
+                    Number(db_age[0]),
+                    Number(db_age[1]),
+                    Number(db_coords[0]),
+                    Number(db_coords[1]),
+                    Number(db_range))
                   if (result) {
                     if (result == 'end') {
+                      component.setState({
+                        end: true,
+                        noCoord: true,
+                        isLoading: false,
+                      })
                       console.log('end block')
                       /* if (component.state.first) {
                             component._startOver(); // FIXME: prevenir reset automatico

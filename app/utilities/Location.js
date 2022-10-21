@@ -27,8 +27,10 @@ export default class Location {
     if (Meteor.user()) {
       Location.requestLocationPermissions(() => {
         this.watchID = navigator.geolocation.getCurrentPosition((position) => {
+          console.log(position, 'geolocation')
           let initialPosition = JSON.stringify(position);
           myBD.criarItem('COORDS', position.coords.longitude + '|' + position.coords.latitude, () => {});
+          console.log(position.coords.longitude, position.coords.latitude, 'ioooppoopopopoppo');
           Meteor.call('changeUserLocation', Meteor.user()._id, position.coords.longitude, position.coords.latitude)
           return true;
         },
@@ -53,6 +55,7 @@ export default class Location {
     if (Meteor.user()) {
       Location.requestLocationPermissions(() => {
         this.watchID = navigator.geolocation.getCurrentPosition((position) => {
+          console.log(position, 'geolocation')
           let initialPosition = JSON.stringify(position);
           myBD.criarItem('COORDS', position.coords.longitude + '|' + position.coords.latitude, () => {});
           Meteor.call('changeUserLocation', Meteor.user()._id, position.coords.longitude, position.coords.latitude);

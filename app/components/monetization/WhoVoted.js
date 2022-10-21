@@ -9,6 +9,7 @@ import {
   Dimensions,
   findNodeHandle,
   ActivityIndicator,
+  FlatList,
   InteractionManager,
   TouchableNativeFeedback,
   TouchableHighlight,
@@ -22,7 +23,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {StatusBar} from 'react-native';
 import PreviewLayer from '../game/PreviewLayer';
 import { BlurView, VibrancyView } from '@react-native-community/blur';
-import ScrollableTabView, {DefaultTabBar, } from 'react-native-scrollable-tab-view';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Alert from '../../utilities/Alert';
 import InAppBilling from 'react-native-billing';
 import GameTagIcon from '../../font/customIcon';
@@ -49,12 +50,13 @@ export default class WhoVoted extends Component {
     this.refreshLists = this.refreshLists.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // this.refreshPurchased()
   }
 
   componentDidMount() {
     //trackScreenView('WhoVotedForYou');
+    console.log('didmount')
     this.refreshLists();
     Meteor.call('userRank', Meteor.user()._id, Meteor.user().profile.gender, (err, result) => {
       this.setState({userRank: result});
@@ -62,7 +64,7 @@ export default class WhoVoted extends Component {
     this.refreshPurchased()
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if(nextProps.refresh){
       this.refreshPurchased()
       // Meteor.call('purchasedItems', Meteor.user()._id, (err, result) => {
@@ -77,6 +79,7 @@ export default class WhoVoted extends Component {
 
   refreshPurchased(){
     Meteor.call('purchasedItems', Meteor.user()._id, (err, result) => {
+      console.log(result, 'ioiouiuo');
       if(!err){
         this.setState({purchased: result, dataDownloaded:true, refreshWinks: true})
       }
@@ -84,8 +87,9 @@ export default class WhoVoted extends Component {
   }
 
   refreshLists() {
-
+    console.log('referesh listttt')
     Meteor.call('gotVotedByObject', Meteor.user()._id, this.props.typeSelected, this.state.limit, this.state.offset, (err, result) => {
+      console.log(result, 'gotVoted')
       if (!err) {
         var endOfList = false;
         if(result.userList){
@@ -366,23 +370,22 @@ class VotesList extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       userList: this.state.userList.cloneWithRows(nextProps.userList),
     });
   }
 
-  _renderRow(user, sectionID, rowID, highlightRow) {
-    console.log(user, 'oopwopeopw')
-    if(user.profile && user.profile.name){
-      var picture = user.profile.picture
-      if(user.profile.custom_picture){
-        picture = user.profile.custom_picture
+  _renderRow(item, sectionID, rowID, highlightRow) {
+    if(item.profile && item.profile.name){
+      var picture = item.profile.picture
+      if(item.profile.custom_picture){
+        picture = item.profile.custom_picture
       }
 
       return (
         <UserProfile
-          user={user} picture={picture} container={this.props.container} type={this.props.type} key={user._id} listComponent={this}
+          user={item} picture={picture} container={this.props.container} type={this.props.type} key={item._id} listComponent={this}
           purchased={this.props.purchased}
           />
       );
@@ -394,7 +397,7 @@ class VotesList extends Component {
   }
 
   _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
-    let renderFooter = false
+    renderFooter = false
     if(rowID == this.props.userList.length - 1){
       renderFooter = true
     }
@@ -433,8 +436,8 @@ class VotesList extends Component {
           </View>
         )
       }
-
       render(){
+        console.log(this.props.userList, 'list=========')
         var WIDTH = Dimensions.get('window').width;
         var HEIGHT = Dimensions.get('window').height;
 
@@ -457,6 +460,12 @@ class VotesList extends Component {
             style={{width: WIDTH, height: HEIGHT*0.75, opacity:listOpacity}}
             removeClippedSubviews = {false}
             />
+            // <FlatList
+            //   data={this?.props?.userList}
+            //   renderItem={this._renderItem}
+            //   ItemSeparatorComponent={this._renderSeparator}
+            //   style={{width: WIDTH, height: HEIGHT*0.75, opacity:listOpacity}}
+            // />
         )
       }
     }
@@ -473,7 +482,7 @@ class VotesList extends Component {
         }
       }
 
-      componentWillReceiveProps(nextProps){
+      UNSAFE_componentWillReceiveProps(nextProps){
         this.setState({unlocked: nextProps.user.unlocked, opacityBlur: nextProps.user.unlocked ? 0 : 100})
       }
 

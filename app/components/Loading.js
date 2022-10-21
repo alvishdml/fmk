@@ -50,12 +50,14 @@ export default class Loading extends Component {
   checkConnection() {
     setTimeout(() => {
       NetInfo.fetch().then(state => {
+        console.log(state, 'netinfo')
         this.setState({
           isOffline: !state.isConnected
         });
+        console.log(!Meteor.loggingIn())
 
         if (state.isConnected && !Meteor.loggingIn()) {
-
+          console.log(Meteor.status().connected, 'ospaidoisd');
           console.log("===================== 111111");
           console.log(Meteor.user(), 'userrrrrrrrrrr');
           if (Meteor.user()) {

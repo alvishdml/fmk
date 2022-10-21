@@ -447,7 +447,7 @@ export default class EmailSignUp extends Component {
           </Text>
           <TextInput
             autoComplete="username"
-            style={{ height: buttonSizeHeight / 1.4 }}
+            style={{ height: buttonSizeHeight / 1.4, borderBottomWidth: 1 }}
             onChangeText={name =>
               this.setState({ name }, () => this.updatePlay())
             }
@@ -463,7 +463,7 @@ export default class EmailSignUp extends Component {
             EMAIL:
           </Text>
           <TextInput
-            style={{ height: buttonSizeHeight / 1.4 }}
+            style={{ height: buttonSizeHeight / 1.4, borderBottomWidth: 1 }}
             autoComplete="email"
             onChangeText={email =>
               this.setState({ email }, () => this.updatePlay())
@@ -493,7 +493,7 @@ export default class EmailSignUp extends Component {
           </Text>
           <TextInput
             secureTextEntry
-            style={{ height: buttonSizeHeight / 1.4 }}
+            style={{ height: buttonSizeHeight / 1.4, borderBottomWidth: 1 }}
             onChangeText={password =>
               this.setState({ password }, () => this.updatePlay())
             }
@@ -745,13 +745,13 @@ export default class EmailSignUp extends Component {
           </TouchableOpacity>
         </View>
         <Modal
-          modalDidClose={() => {
+          onDismiss={() => {
             this.setState({ missingPhoto: false });
           }}
           offset={0}
           hideCloseButton={false}
           backdropType="blur"
-          open={this.state.missingPhoto}
+          isVisible={this.state.missingPhoto}
           containerStyle={{
             alignItems: "center"
           }}

@@ -41,6 +41,7 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import MonetizationSlideshowTab from './components/monetization/MonetizationSlideshowTab';
 import MonetizationMainMenu from './components/monetization/MonetizationMainMenu';
 import { trackScreen, trackEvent } from './utilities/Analytics';
+import {GOOGLE_API_KEY} from 'react-native-dotenv';
 const FBSDK = require('react-native-fbsdk-next');
 const { AppEventsLogger } = FBSDK;
 
@@ -51,7 +52,6 @@ var firstLogin;
 export default class MainPage extends Component {
   constructor(props) {
     super(props);
-
     if (Meteor.user()) {
       var pos = Meteor.user().profile.pos.coordinates;
       if (pos[0] != 0 && pos[1] != 0) {
@@ -298,7 +298,7 @@ export default class MainPage extends Component {
   }
 
   getUserCountryCode(coords) {
-    const apiKey = 'AIzaSyCK8ZJtgtSiiRG5sGtlsBHjOOLDS1xsl0I';
+    const apiKey = GOOGLE_API_KEY;
     var bd_coords = coords.split('|');
     var query =
       'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +

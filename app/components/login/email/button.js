@@ -59,7 +59,7 @@ export class EmailLoginButton extends Component {
 
     return (
       <View>
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -82,7 +82,7 @@ export class EmailLoginButton extends Component {
           >
             OR
           </Text>
-        </View>
+        </View> */}
         <TouchableOpacity
           activeOpacity={0.4}
           style={[

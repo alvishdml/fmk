@@ -85,6 +85,7 @@ export default {
         currentPassword: 'Current password:',
         newPassword: 'New password:',
         changePasswordError: 'The current password does not match',
+        myGender: 'M Y  G E N D E R'
       },
       MatchesPage: {
         newMatches: 'N E W  M A T C H E S',

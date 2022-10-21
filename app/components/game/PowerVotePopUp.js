@@ -301,7 +301,7 @@ export default class PowerVotePopUp extends Component {
             {this.state.renderSkip && (
               <TouchableOpacity
                 onPress={() => {
-                  this.props.mainPage.refs['gameView']._skip();
+                  this.props.mainPage.ref_gameView.current._skip();
                   this.setState({ isOpen: false });
                 }}
                 style={{

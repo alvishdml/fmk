@@ -65,6 +65,7 @@ export default class CustomAlert extends Component {
   }
 
   closeModal(category, action, label) {
+    console.log(category, action, label, 'close modal')
     this.setState({ isOpen: false, titulo: '', conteudo: '', tipo: '', param: '', matchId: '' });
     if(action == 'Logout' && label == 'Click_Yes'){
       Meteor.call('deactivateUser', Meteor.user()._id, (err, result) => {
@@ -558,17 +559,18 @@ export default class CustomAlert extends Component {
         </View>
       );
       case 'delete_account':
+        console.log('delete_account popup')
       return (
         <View style={{ flexGrow: 1, margin: 10, justifyContent: 'center', alignItems: 'flex-end', marginRight: 15 }}>
           <TouchableOpacity onPress={() => {
-              this.closeModal.bind(this);
+              this.setState({ isOpen: false, titulo: '', conteudo: '', tipo: '', param: '', matchId: '' });
               branch.logout()
               AsyncStorage.removeItem('referrer')
               myBD.apagarTudo(function(keys) {
               });
               // LoginManager.logOut();
               Meteor.logout();
-              Actions.login();
+              // Actions.login();
             }}>
             <Text style={{ fontFamily: 'Montserrat-Bold', backgroundColor: 'transparent', color: '#FFF', margin: 5 }}>
             {I18n.t('app.components.CustomAlert.ok')}

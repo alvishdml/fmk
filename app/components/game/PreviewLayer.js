@@ -420,48 +420,41 @@ export default class PreviewLayer extends Component {
     renderSwiper() {
       if (this.state.photoArray != null && this.state.photoArray != [] && this.state.photoArray.length > 1) {
         return (
-          <View stlye={{flex: 1}}>
-            <View style={{justifyContent: 'center', alignItems: 'center', overflow: 'hidden'}}>
-              <Swiper
-                ref={"swiper"}
-                loop={false}
-                height={HEIGHT / 1.9}
-                width={WIDTH * 0.837}
-                onMomentumScrollEnd = {(state, context)=> {
-                  var currentPage = context.index
-                  trackEvent('User_Profile_Detail', 'Photo_swiped')
-                }}
-                dot={
-                  <View style={{ backgroundColor: 'rgba(0,0,0,.3)', width: 10, height: 10, borderRadius: 5, marginLeft: 3, marginRight: 3, borderColor: 'white', borderStyle: 'solid', borderWidth: 1}} />
-                }
-                activeDot={
-                  <View style={{ backgroundColor: '#ffffff', width: 10, height: 10, borderRadius: 5, marginLeft: 3, marginRight: 3}} />
-                }>
-                {this.renderPic()}
-              </Swiper>
-            </View>
-          </View>
+          <Swiper
+            style={styles.wrapper}
+            ref={"swiper"}
+            loop={false}
+            height={HEIGHT / 1.9}
+            width={WIDTH * 0.855}
+            onMomentumScrollEnd = {(state, context)=> {
+              var currentPage = context.index
+              trackEvent('User_Profile_Detail', 'Photo_swiped')
+            }}
+            dot={
+              <View style={{ backgroundColor: 'rgba(0,0,0,.3)', width: 10, height: 10, borderRadius: 5, marginLeft: 3, marginRight: 3, borderColor: 'white', borderStyle: 'solid', borderWidth: 1}} />
+            }
+            activeDot={
+              <View style={{ backgroundColor: '#ffffff', width: 10, height: 10, borderRadius: 5, marginLeft: 3, marginRight: 3}} />
+            }>
+            {this.renderPic()}
+          </Swiper>
         )
       } else {
         return (
-          <View stlye={{flex: 1}}>
-            <View style={{justifyContent: 'center', alignItems: 'center', overflow: 'hidden'}}>
-              <Swiper
-                ref={"swiper"}
-                loop={false}
-                height={HEIGHT / 1.9}
-                width={WIDTH * 0.837}
-                dot={
-                  <View style={{ backgroundColor: 'rgba(0,0,0,.2)', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3}} />
-                }
-                activeDot={
-                  <View style={{ backgroundColor: '#ffffff', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3}} />
-                }>
-                  <Image style={{ flex: 1}} borderTopLeftRadius={10} borderTopRightRadius={10} resizeMode="cover" source={this.state.image} />
-              </Swiper>
-            </View>
-          </View>
-
+          <Swiper style={styles.wrapper} 
+              // showsButtons={true}
+              loop={false}
+              height={HEIGHT / 1.9}
+              width={WIDTH * 0.855}
+              dot={
+                <View style={{ backgroundColor: 'rgba(0,0,0,.2)', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3}} />
+              }
+              activeDot={
+                <View style={{ backgroundColor: '#ffffff', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3}} />
+              }
+          >
+            <Image style={{ flex: 1}} borderTopLeftRadius={10} borderTopRightRadius={10} resizeMode="cover" source={this.state.image} />
+          </Swiper>
         )
       }
     }
@@ -485,15 +478,15 @@ export default class PreviewLayer extends Component {
     renderPic() {
       let photos = [];
       let length = this.state.photoArray.length;
-
       photos.push(
-          <Image style={{ flex: 1 }} borderTopLeftRadius={10} borderTopRightRadius={10} resizeMode="cover" source={this.state.image} key={6} />
+          <Image style={{ flex: 1 }} borderTopLeftRadius={10} borderTopRightRadius={10} resizeMode="cover" source={{uri: this.state.image.uri}} key={6} />
         )//Key is 6 because max is only 5 photos. Like this there wont be 2 elements with the same key
       for (var i = 0; i < length; i++) {
         if (i  == this.state.index) {
+        console.log(this.state.photoArray[i], 'imageee')
+          console.log('true')
           continue;
         }
-
         photos.push(
           <Image key={i} style={{ flex: 1 }} borderTopLeftRadius={10} borderTopRightRadius={10} resizeMode="cover" source={{ uri: this.state.photoArray[i] }} />
           );

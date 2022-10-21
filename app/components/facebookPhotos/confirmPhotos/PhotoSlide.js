@@ -145,7 +145,7 @@ export default class PhotoSlide extends Component {
                 alignItems: 'center',
                 flexDirection: 'column',
                 borderColor: '#aeb7b7',
-                height: (Dimensions.get('window').height - 40) / 11,
+                height: (Dimensions.get('window').height - 40) / 14,
                 width: Dimensions.get('window').width / 7,
                 borderRadius: (Dimensions.get('window').height - 40) / 11,
               }}
@@ -265,7 +265,7 @@ export default class PhotoSlide extends Component {
           <View
             style={{
               marginLeft: 10,
-              marginTop: -20,
+              marginTop: -80,
               justifyContent: 'center',
               alignItems: 'center',
             }}

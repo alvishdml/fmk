@@ -1,28 +1,12 @@
 import React, { Component } from 'react';
 import I18n from '../../../config/i18n';
-import ReactNative, {
-  Text,
-  View,
-  Image,
-  ScrollView,
-  ActivityIndicator,
-  TouchableOpacity,
-  Dimensions,
-  TextInput,
-  Alert,
-  ViewPagerAndroid,
-  Platform,
-} from 'react-native';
 import styles from '../../styles/styles';
 import Share, { ShareSheet, Button } from 'react-native-share';
 import branch from 'react-native-branch';
 import Meteor from '@meteorrn/core';
 import { trackEvent } from '../../utilities/Analytics';
-
-const FBSDK = require('react-native-fbsdk-next');
-const {
-  AppInviteDialog,
-} = FBSDK;
+import { ShareDialog } from 'react-native-fbsdk-next';
+import { Alert } from 'react-native';
 
 export default class ShareApp extends Component {
 
@@ -69,6 +53,26 @@ export default class ShareApp extends Component {
     this.setState({ visible: estado });
   }
 
+  singleShare = async (customOptions) => {
+    console.log('singleShare called')
+    try {
+      const { isInstalled } = await Share.isPackageInstalled(
+        "com.whatsapp"
+      );
+      if (isInstalled) {
+        await Share.shareSingle(customOptions);
+      } else {
+        Alert.alert(
+          "Whatsapp not installed",
+          "Whatsapp not installed, please install.",
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   render() {
     let twitterDialog = {
       title: "F*ck Marry Kill",
@@ -84,13 +88,13 @@ export default class ShareApp extends Component {
             this.onCancel();
             setTimeout(() => {
               let inviteOnFacebook = {
-                applinkUrl: this.state.shareUrl,
-                previewImageUrl: 'http://playfmk.com/images/feature.jpg',
+                contentType: 'link',
+                contentUrl: "http://playfmk.com/images/feature.jpg",
               };
-              AppInviteDialog.canShow(inviteOnFacebook).then(
+              ShareDialog.canShow(inviteOnFacebook).then(
                 function (canShow) {
                   if (canShow) {
-                    return AppInviteDialog.show(inviteOnFacebook, (error, result) => {
+                    return ShareDialog.show(inviteOnFacebook, (error, result) => {
 
                     });
                   }
@@ -134,27 +138,11 @@ export default class ShareApp extends Component {
         </Button>
         <Button icon='whatsapp'
           onPress={() => {
-            this.onCancel();
-            setTimeout(() => {
-              let shareOptions = {
-                url: this.state.shareUrl,
-                subject: "Share Link" //  for email
-              };
-              Share.shareSingle(
-                Object.assign(shareOptions, {
-                  "social": "whatsapp"
-                })
-              ).then(
-                function (result) {
-                  if (result.message == 'OK') {
-                    trackEvent('Invite', 'Friends_Success', { label: 'Twitter' });
-                  } else {
-                    trackEvent('Invite', 'Friends_Cancelled/Error', { label: 'Twitter' });
-                  }
-                },
-              );
-            }, 300);
-          } }>
+            this.singleShare({
+              url: this.state.shareUrl,
+              social: Share.Social.WHATSAPP,
+            });
+          }}>
           WhatsApp
         </Button>
         <Button icon='envelope'
@@ -163,13 +151,10 @@ export default class ShareApp extends Component {
             setTimeout(() => {
               let shareOptions = {
                 url: this.state.shareUrl,
-                subject: I18n.t('app.components.sharing.ShareApp.twitterDialogMessage')
+                subject: I18n.t('app.components.sharing.ShareApp.twitterDialogMessage'),
+                social: Share.Social.EMAIL,
               };
-              Share.shareSingle(
-                Object.assign(shareOptions, {
-                  "social": "email"
-                })
-              ).then(
+              Share.shareSingle(shareOptions).then(
                 function (result) {
                   if (result.message == 'OK') {
                     trackEvent('Invite', 'Friends_Success', { label: 'Email' });

@@ -155,14 +155,11 @@ export default class FacebookPhotos extends Component {
     trackEvent("Edit_Profile", "Custom_photo_choose");
     // More info on all the options is below in the API Reference... just some common use cases shown here
     const options = {
-      title: "Select Photo",
-      storageOptions: {
-        skipBackup: true,
-        path: "images"
-      },
-      quality: 0.9,
+      maxHeight: 800,
       maxWidth: 800,
-      maxHeight: 800
+      selectionLimit: 0,
+      mediaType: 'photo',
+      includeBase64: true,
     };
 
     /**
@@ -176,7 +173,12 @@ export default class FacebookPhotos extends Component {
         trackEvent("Edit_Profile", "Custom_photo_error");
       } else {
         this.setState({ isLoading: true }, () => {
-          const source = { uri: "data:image/jpeg;base64," + response.data };
+          if (!response?.assets || !response?.assets[0])
+          return;
+
+        let base64 = response?.assets[0].base64;
+
+        const source = { uri: "data:image/jpeg;base64," + base64 };
           Meteor.call(
             "saveCustomPic",
             Meteor.user()._id,

@@ -106,14 +106,16 @@ export default class GameCard extends Component {
   handlePressIn() {
     Animated.timing(this.state.pressAction, {
       duration: 0,
-      toValue: 1
+      toValue: 1,
+      useNativeDriver: true
     }).start(this.animationActionComplete.bind(this));
   }
 
   handlePressOut() {
     Animated.timing(this.state.pressAction, {
       duration: this._value * 20,
-      toValue: 0
+      toValue: 0,
+      useNativeDriver: true
     }).start(this.animationActionComplete.bind(this));
   }
 

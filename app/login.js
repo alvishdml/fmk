@@ -329,7 +329,7 @@ export default class Login extends Component {
           style={{ flex: 0.45, justifyContent: "center", alignItems: "center" }}
         >
           <CustomLoginButton marginBottomText={marginBottomText} />
-          <InstagramCustomLoginButton marginBottomText={marginBottomText} />
+          {/* <InstagramCustomLoginButton marginBottomText={marginBottomText} /> */}
           <EmailLoginButton marginBottomText={marginBottomText} />
           <Text
             style={{

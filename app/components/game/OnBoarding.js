@@ -72,29 +72,36 @@ export default class OnBoarding extends Component {
       sequence([
         timing(this.state.fingerOpacity, {
           toValue: 1,
-          duration: 50
+          duration: 50,
+          useNativeDriver: true
         }),
         parallel([
           timing(this.state.topFinger, {
             toValue: 90,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
+
           }),
           timing(this.state.rightFinger, {
             toValue: 10,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
           })
         ]),
         timing(this.state.fuckRippleOpacity, {
           toValue: 0.5,
-          duration: 250
+          duration: 250,
+          useNativeDriver: true
         }),
         timing(this.state.fuckViewFade, {
           toValue: 1,
-          duration: 275
+          duration: 275,
+          useNativeDriver: true
         }),
         timing(this.state.fuckRippleOpacity, {
           toValue: 0,
-          duration: 250
+          duration: 250,
+          useNativeDriver: true
         }),
       ]),
       delay(250),
@@ -102,57 +109,69 @@ export default class OnBoarding extends Component {
         parallel([
           timing(this.state.topFinger, {
             toValue: (HEIGHT-43)*2/3+25,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
           }),
           timing(this.state.rightFinger, {
             toValue: WIDTH-WIDTH/5-50-5,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
           })
         ]),
         timing(this.state.marryRippleOpacity_undo, {
           toValue: 0.5,
-          duration: 250
+          duration: 250,
+          useNativeDriver: true
         }),
         timing(this.state.marryViewFade_undo, {
           toValue: 1,
-          duration: 275
+          duration: 275,
+          useNativeDriver: true
         }),
         timing(this.state.marryRippleOpacity_undo, {
           toValue: 0,
-          duration: 250
+          duration: 250,
+          useNativeDriver: true
         }),
         parallel([
           timing(this.state.topFinger, {
             toValue: 250,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
           }),
           timing(this.state.rightFinger, {
             toValue: 210,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
           })
         ]),
         delay(100),
         parallel([
           timing(this.state.topFinger, {
             toValue: (HEIGHT-43)*2/3+25,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
           }),
           timing(this.state.rightFinger, {
             toValue: WIDTH-WIDTH/5-50-5,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
           })
         ]),
         timing(this.state.marryRippleOpacity_undo, {
           toValue: 0.5,
-          duration: 250
+          duration: 250,
+          useNativeDriver: true
         }),
         timing(this.state.marryViewFade_undo, {
           toValue: 0,
-          duration: 275
+          duration: 275,
+          useNativeDriver: true
         }),
         timing(this.state.marryRippleOpacity_undo, {
           toValue: 0,
-          duration: 250
+          duration: 250,
+          useNativeDriver: true
         }),
       ]),
       delay(250),
@@ -160,24 +179,29 @@ export default class OnBoarding extends Component {
         parallel([
           timing(this.state.topFinger, {
             toValue: (HEIGHT-43)/3+20,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
           }),
           timing(this.state.rightFinger, {
             toValue: WIDTH-80,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
           })
         ]),
         timing(this.state.marryRippleOpacity, {
           toValue: 0.5,
-          duration: 250
+          duration: 250,
+          useNativeDriver: true
         }),
         timing(this.state.marryViewFade, {
           toValue: 1,
-          duration: 275
+          duration: 275,
+          useNativeDriver: true
         }),
         timing(this.state.marryRippleOpacity, {
           toValue: 0,
-          duration: 250
+          duration: 250,
+          useNativeDriver: true
         }),
       ]),
       delay(250),
@@ -185,43 +209,52 @@ export default class OnBoarding extends Component {
         parallel([
           timing(this.state.topFinger, {
             toValue: (HEIGHT-43)*2/3+25,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
           }),
           timing(this.state.rightFinger, {
             toValue: WIDTH-WIDTH/5-50-5,
-            duration: 250
+            duration: 250,
+            useNativeDriver: true
           })
         ]),
         timing(this.state.killRippleOpacity, {
           toValue: 0.5,
-          duration: 250
+          duration: 250,
+          useNativeDriver: true
         }),
         timing(this.state.killViewFade, {
           toValue: 1,
-          duration: 275
+          duration: 275,
+          useNativeDriver: true
         }),
         timing(this.state.killRippleOpacity, {
           toValue: 0,
-          duration: 250
+          duration: 250,
+          useNativeDriver: true
         }),
       ]),
       delay(250),
       parallel([
         timing(this.state.fuckViewFade, {
           toValue: 0,
-          duration: 50
+          duration: 50,
+          useNativeDriver: true
         }),
         timing(this.state.marryViewFade, {
           toValue: 0,
-          duration: 50
+          duration: 50,
+          useNativeDriver: true
         }),
         timing(this.state.killViewFade, {
           toValue: 0,
-          duration: 50
+          duration: 50,
+          useNativeDriver: true
         }),
         timing(this.state.fingerOpacity, {
           toValue: 0,
-          duration: 50
+          duration: 50,
+          useNativeDriver: true
         }),
       ])
     ]).start(event => {
@@ -392,7 +425,7 @@ export default class OnBoarding extends Component {
           </View>
           {this.state.firstAnimation &&
             <View style={{ height: HEIGHT - 86, flexGrow: 1, alignItems:'center', justifyContent:'center' }}>
-              <Animated.View style={{position: 'absolute', top:this.state.topFinger, right:this.state.rightFinger, zIndex: 10, opacity: this.state.fingerOpacity}}>
+              <Animated.View style={{position: 'absolute', transform: [{ translateY: this.state.topFinger,translateX: this.state.rightFinger }], zIndex: 10, opacity: this.state.fingerOpacity}}>
                 <Text style={{fontSize:50}}>👆</Text>
               </Animated.View>
               <Animated.View style={{ opacity: this.state.fuckViewFade, flex: 1, alignItems:'center', justifyContent:'center' }}>
@@ -434,7 +467,7 @@ export default class OnBoarding extends Component {
               <Animated.View style={{position: 'absolute', top:-48, left:0, opacity: this.state.matchOpacity, zIndex: 11}}>
                 {this.renderMatch()}
               </Animated.View>
-              <Animated.View style={{position: 'absolute', top:this.state.topFinger, right:this.state.rightFinger, zIndex: 10, opacity: this.state.fingerOpacity}}>
+              <Animated.View style={{position: 'absolute', transform: [{ translateY: this.state.topFinger, translateX: this.state.rightFinger },], zIndex: 10, opacity: this.state.fingerOpacity}}>
                 <Text style={{fontSize:50}}>👆</Text>
               </Animated.View>
               <Animated.View style={{ opacity: this.state.killViewFade, flex: 1, alignItems:'center', justifyContent:'center' }}>

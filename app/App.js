@@ -20,7 +20,6 @@ import {
 import { Scene, Router, ActionConst, Actions } from 'react-native-router-flux';
 import Menu, { MenuContext } from 'react-native-menu';
 import AlertC from './utilities/Alert';
-import codePush from 'react-native-code-push';
 import Meteor from '@meteorrn/core';
 import OneSignal from 'react-native-onesignal';
 import branch from 'react-native-branch';
@@ -58,20 +57,19 @@ import InstagramAlbumPhotoPage from './components/facebookPhotos/InstagramPhotos
 // Production server
 const url = 'wss://app.playfmk.com/websocket';
 // const url = 'wss://dmk-back.foobar.in/websocket';
+// const url = 'ws://192.168.1.214:3000/websocket';
 // Staging server
 // const url = 'ws://40.85.94.160/websocket';
 // // Local server
 // const url = 'ws://ebada6e1.ngrok.io/websocket';
-
-Meteor.connect(url);
 
 I18nManager.allowRTL(false);
 
 const App = () => {
 
   useEffect(() => {
-
-    
+    Meteor.connect(url);
+    console.log(Meteor.status().connected, 'connection')
     //OneSignal.inFocusDisplaying(0);    
 
     branch.subscribe(bundle => {

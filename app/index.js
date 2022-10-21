@@ -80,6 +80,7 @@ class FMK extends Component {
     console.disableYellowBox = true;
     // Production server
     const url = 'wss://app.playfmk.com/websocket';
+    // const url = 'wss://dmk-back.foobar.in/websocket';
     // Staging server
     // const url = 'ws://40.85.94.160/websocket';
     // // Local server

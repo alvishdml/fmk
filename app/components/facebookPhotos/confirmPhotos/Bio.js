@@ -30,9 +30,10 @@ export default class Bio extends Component {
         }
         this._keyboardDidShow = this._keyboardDidShow.bind(this);
         this._keyboardDidHide = this._keyboardDidHide.bind(this);
+        this.ref_aboutTextBox = React.createRef(null);
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
         this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     }
@@ -59,7 +60,7 @@ export default class Bio extends Component {
     }
 
     clearText(fieldName, textoLet) {
-        this.refs[fieldName].clear();
+        // this.refs[fieldName].clear();
         Meteor.user().profile.about = '';
         this.setState({
             newBio: '',
@@ -71,7 +72,7 @@ export default class Bio extends Component {
     submitBio(){
         Meteor.call('clearBio', Meteor.user()._id);
         this.setState({ editBio: false, hasBio: true });
-        this.refs['aboutTextBox'].blur();
+        this.ref_aboutTextBox.current.blur();
         trackEvent('Edit_Profile', 'Edit_description');
     }
 
@@ -95,7 +96,7 @@ export default class Bio extends Component {
                     <Text style={styles.userAboutTextinputNewTitle}>{I18n.t('app.components.facebookPhotos.confirmPhotos.Bio.addBio')}</Text>
                     <View style={{ flex: 3, alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
                         <TextInput underlineColorAndroid='transparent' style={[styles.userAboutTextinputNew, { width: Dimensions.get('window').width - 30, height: Dimensions.get('window').height * 0.09}]}
-                            ref='aboutTextBox'
+                            ref={this.ref_aboutTextBox}
                             returnKeyType="done"
                             autoCapitalize="sentences"
                             maxLength={200}
@@ -105,7 +106,7 @@ export default class Bio extends Component {
                                 this.setState({ editBio: true });
                             }}
                             defaultValue={textoLet} />
-                            <View style={{ position: 'absolute', right: 20, top: 14, width: 25, height: 25, borderRadius: 25, justifyContent: 'center', alignItems: 'center' }} >
+                            <View style={{ position: 'absolute', right: 20, top: 50, width: 25, height: 25, borderRadius: 25, justifyContent: 'center', alignItems: 'center' }} >
                                 <Icon name={'mode-edit'} size={15} color={'rgb(63,66,67)'} style={{ backgroundColor: 'transparent' }} />
                             </View>
                     </View>
@@ -117,7 +118,7 @@ export default class Bio extends Component {
                     <Text style={styles.userAboutTextinputNewTitle}>{I18n.t('app.components.facebookPhotos.confirmPhotos.Bio.addBio')}</Text>
                     <View style={{ flex: 3, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', height: Dimensions.get('window').height * 0.4}}>
                         <TextInput underlineColorAndroid='transparent' style={[styles.userAboutTextinputNew, { width: Dimensions.get('window').width - 60, marginLeft: Dimensions.get('window').width * 0.095, height: Dimensions.get('window').height * 0.09}]}
-                            ref='aboutTextBox'
+                            ref={this.ref_aboutTextBox}
                             //returnKeyType="done"
                             //autoCapitalize="sentences"
                             autoCorrect={false} 
